@@ -1,16 +1,25 @@
 import React from 'react';
 
 export default function ToolBackdrop() {
-  // Use records in your Backdrop component
-
+  const titleStyle = {
+    background: 'linear-gradient(to right, #bee25a, #357135)',
+    transition: 'background 0.7s',
+};
   return (
-    <div className="h-[400px] w-auto relative flex ">
-      <div className="bg-opacity-0 fixed top-0 left-0 right-0 bg-center bg-cover "></div>
-      <div className="flex-col absolute inset-0 flex items-center justify-center bg-opacity-50 text-white text-center">
-        <div className="flex-none mr-4">
-          <img src='/headergokidogotools.png' alt='gokidogo' className="h-62 w-62 object-cover" />
-        </div>
-        <div className='py-12 px-2 items-center mt-4'>
+    <div className="flex items-center justify-center h-[450px]">
+      <div className="flex flex-col md:flex-row">
+        <img
+          src='/headergokidogotools.png'
+          alt='gokidogo'
+          className="h-62 w-62"
+        />
+        <div className="text-white text-center mt-24 md:text-left">
+          <h3 className="text-5xl font-bold text-center mt-4 md:mt-0">
+            Ihre smarten<br />Begleiter<br/>in eine digitale<br/>Zukunft
+          </h3>
+          <div className='py-6 text-center'>
+            <button className="text-white font-semibold py-2 px-4 rounded left-14" style={titleStyle}>Jetzt Demo anfordern</button>
+          </div>
         </div>
       </div>
     </div>
