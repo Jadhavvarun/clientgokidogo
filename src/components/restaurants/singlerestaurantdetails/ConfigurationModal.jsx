@@ -2,14 +2,18 @@
 
 import { useEffect } from "react";
 import React, { useState } from 'react';
+import Billingcart from "./Billingcart";
 
-const ConfigurationModal = ({ product, onClose, onConfigurationConfirm }) => {
-  console.log('product',product)
+const ConfigurationModal = ({ product, onClose }) => {
+  console.log('product', product)
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState({});
   const [maxSelectionLimits, setMaxSelectionLimits] = useState({});
   const [minSelectionLimits, setMinSelectionLimits] = useState({});
   const [loading, setLoading] = useState(true);
+
+
+
 
 
 
@@ -141,66 +145,67 @@ const ConfigurationModal = ({ product, onClose, onConfigurationConfirm }) => {
 
 
 
-// Assuming you have a counter variable somewhere in your code.
-let includedAddonCounter = 0;
+      // Assuming you have a counter variable somewhere in your code.
+      let includedAddonCounter = 0;
 
-// Include selected addons with their names and prices
-for (const addonName in selectedAddons[selectoptName]) {
-  const addonData = selectopt.Modifier
-    .filter((modifier) => modifier.AddonName === addonName)
-    .find((modifier) => modifier.Size === selectedSize);
+      // Include selected addons with their names and prices
+      for (const addonName in selectedAddons[selectoptName]) {
+        const addonData = selectopt.Modifier
+          .filter((modifier) => modifier.AddonName === addonName)
+          .find((modifier) => modifier.Size === selectedSize);
 
-  if (selectedAddons[selectoptName][addonName] && addonData) {
-    // Log addon size and selected size for debugging
-    console.log(`Addon: ${addonName}, Size: ${addonData.Size}, Selected Size: ${selectedSize}`);
+        if (selectedAddons[selectoptName][addonName] && addonData) {
+          // Log addon size and selected size for debugging
+          console.log(`Addon: ${addonName}, Size: ${addonData.Size}, Selected Size: ${selectedSize}`);
 
-    // Check if the addon size matches the selected size
-    if (addonData.Size.toUpperCase() === selectedSize.toUpperCase()) {
-      console.log('Size match found.');
+          // Check if the addon size matches the selected size
+          if (addonData.Size.toUpperCase() === selectedSize.toUpperCase()) {
+            console.log('Size match found.');
 
-      // Check if the addon is free based on the included counter
-      const isFreeAddon = includedAddonCounter < parseInt(selectopt.Included, 10);
+            const isBaseAddon = selectopt.Name === 'Base';
+            const isFreeAddon = !isBaseAddon && includedAddonCounter < parseInt(selectopt.Included, 10);
 
-      const addonDetails = {
-        name: addonName,
-        price: parseFloat(addonData.Price),
-        // Add other details as needed
-      };
 
-      selectedAddonDetails.push(addonDetails);
+            const addonDetails = {
+              name: addonName,
+              price: parseFloat(addonData.Price),
+              // Add other details as needed
+            };
 
-      // Accumulate null in totalPrice for free addons
-      if (!isFreeAddon) {
-        totalPrice += parseFloat(addonData.Price);
+            selectedAddonDetails.push(addonDetails);
+
+            // Accumulate null in totalPrice for free addons
+            if (!isFreeAddon) {
+              totalPrice += parseFloat(addonData.Price);
+            }
+
+            // Increment the counter for free addons
+            if (isFreeAddon) {
+              includedAddonCounter++;
+            }
+          } else {
+            console.log('Size match not found.');
+          }
+        }
       }
 
-      // Increment the counter for free addons
-      if (isFreeAddon) {
-        includedAddonCounter++;
-      }
-    } else {
-      console.log('Size match not found.');
-    }
-  }
-}
 
 
+    });
 
- });
+    // Include selected product details
+    const productDetails = {
+      name: product.name,
+      price: parseFloat(product.price),
+      // Add other details as needed
+    };
 
-  // Include selected product details
-const productDetails = {
-  name: product.name,
-  price: parseFloat(product.price),
-  // Add other details as needed
-};
+    selectedAddonDetails.push(productDetails);
 
-selectedAddonDetails.push(productDetails);
+    // Accumulate the product price to calculate the total price
+    totalPrice += parseFloat(product.price);
 
-// Accumulate the product price to calculate the total price
-totalPrice += parseFloat(product.price);
 
-    
 
     // Log the total price for debugging
     console.log('Total Price:', totalPrice);
@@ -215,12 +220,13 @@ totalPrice += parseFloat(product.price);
     console.log('Selected Addon Details:', selectedAddonDetails);
     console.log('Total Price:', totalPrice);
 
-    // Call the onConfigurationConfirm prop to pass the details to the parent component
-    if (onConfigurationConfirm) {
-      onConfigurationConfirm({ addons: selectedAddonDetails, totalPrice });
-    }
+    // // Call the onConfigurationConfirm prop to pass the details to the parent component
+    // if (onConfigurationConfirm) {
+    //   onConfigurationConfirm({ addons: selectedAddonDetails, totalPrice });
+    // }
 
     // Close the modal
+    // setSelectedaddonDetails({addons: selectedAddonDetails, totalPrice })
     onClose();
   };
 
@@ -346,6 +352,7 @@ totalPrice += parseFloat(product.price);
           </button>
         </div>
       </div>
+
     </div>
   );
 };

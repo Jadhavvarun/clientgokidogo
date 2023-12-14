@@ -5,7 +5,6 @@ import NavBar from '@/components/home/Navbar';
 import Backdrop from '../../components/restaurants/allrestaurantdetails/Backdrop';
 import Restaurantdetails from '../../components/restaurants/allrestaurantdetails/Restaurantdetails';
 import Footer from '@/components/home/Footer';
-
 export default function Page() {
  
 

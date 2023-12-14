@@ -1,9 +1,7 @@
 'use client'
-
 import { useRouter, useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Addtocart from './Billingcart';
 import BillingCart from './Billingcart';
 import ConfigurationModal from './ConfigurationModal';
 

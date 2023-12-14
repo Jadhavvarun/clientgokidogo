@@ -6,6 +6,8 @@ import { FaMinusCircle } from 'react-icons/fa';
 
 
 const BillingCart = ({ cart, onIncrement, onDecrement }) => {
+  console.log("cart",cart);
+
   const [hovered, setHovered] = useState(false);
   const [style, setStyle] = useState({
     background: 'linear-gradient(to right, #bee25a, #357135)',
