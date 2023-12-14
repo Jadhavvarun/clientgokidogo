@@ -113,7 +113,7 @@ function NavBar() {
                     </button>
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
                        <li>
-                       <img src="https://www.gokidogo.de/img/gokido/logo-sticky.svg" className="h-20 w-auto mr-4" alt="gokidogo Logo" />
+                     <Link href="/">  <img src="https://www.gokidogo.de/img/gokido/logo-sticky.svg" className="h-20 w-auto mr-4" alt="gokidogo Logo" /> </Link>
                        </li>
                        <div className='ml-10   flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0'>
                         <li
