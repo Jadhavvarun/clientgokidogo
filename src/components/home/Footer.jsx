@@ -81,9 +81,9 @@ const Footer = () =>
           </div>
           <div>
             <p>
-              <Link href="/conditions-de" className="mr-4 text-sm">AGB&apos;s</Link>
+              <Link href='/conditions-de' className="mr-4 text-sm">AGB&apos;s</Link>
               <span className="mx-2">|</span>
-              <Link href="/privacy-de" className="mx-4 text-sm">Privatsphäre</Link>
+              <Link href='/privacy-de' className="mx-4 text-sm">Privatsphäre</Link>
               <span className="mx-2">|</span>
               <span className="ml-4 text-sm">© Go Kidogo 2022</span>
             </p>
