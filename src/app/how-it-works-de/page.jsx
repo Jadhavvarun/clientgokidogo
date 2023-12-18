@@ -1,5 +1,5 @@
 // Page.jsx
-import NavBar from "@/components/home/navbar";
+import NavBar from '@/components/home/Navbar'
 import Footer from "@/components/home/Footer";
 import Howitworks from "@/components/how-it-works/Howitworks";
 import HowitworksBackdrop from "@/components/how-it-works/HowitworksBackdrop";

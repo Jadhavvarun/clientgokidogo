@@ -1,4 +1,4 @@
-import NavBar from "@/components/home/navbar";
+import NavBar from '@/components/home/Navbar'
 import ConditionsBackdrop from "@/components/conditions/ConditionsBackdrop";
 import Conditions from "@/components/conditions/Conditions";
 import Footer from "@/components/home/Footer";

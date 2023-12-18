@@ -1,4 +1,4 @@
-import NavBar from "@/components/home/navbar";
+import NavBar from '@/components/home/Navbar'
 import ImpressumBackdrop from "@/components/impressum/ImpressumBackdrop";
 import Impressum from "@/components/impressum/Impressum";
 import Footer from "@/components/home/Footer";
