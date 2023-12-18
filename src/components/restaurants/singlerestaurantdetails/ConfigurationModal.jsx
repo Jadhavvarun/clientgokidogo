@@ -2,18 +2,16 @@
 
 import { useEffect } from "react";
 import React, { useState } from 'react';
-import Billingcart from "./Billingcart";
+import {IoIosCloseCircle} from 'react-icons/io'
 
-const ConfigurationModal = ({ product, onClose }) => {
-  console.log('product', product)
+const ConfigurationModal = ({ product, onClose,onConfigurationConfirm }) => {
+  console.log('productConfigurationModel', product)
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState({});
   const [maxSelectionLimits, setMaxSelectionLimits] = useState({});
   const [minSelectionLimits, setMinSelectionLimits] = useState({});
   const [loading, setLoading] = useState(true);
-
-
-
+  const [selectedAddonDetails,setSelectedaddonDetails] = useState(null);
 
 
 
@@ -221,15 +219,13 @@ const ConfigurationModal = ({ product, onClose }) => {
     console.log('Total Price:', totalPrice);
 
     // // Call the onConfigurationConfirm prop to pass the details to the parent component
-    // if (onConfigurationConfirm) {
-    //   onConfigurationConfirm({ addons: selectedAddonDetails, totalPrice });
-    // }
+    if (onConfigurationConfirm) {
+      onConfigurationConfirm({ addons: selectedAddonDetails, totalPrice });
+    }
 
     // Close the modal
-    // setSelectedaddonDetails({addons: selectedAddonDetails, totalPrice })
     onClose();
   };
-
 
 
 
@@ -273,35 +269,56 @@ const ConfigurationModal = ({ product, onClose }) => {
 
 
   return (
-    <div className="z-30 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-md w-96 h-96 overflow-y-auto">
-        <div className="bg-green-200 p-6 w-96 overflow-y-auto shadow-md">
-          <h2 className="text-gray-600 text-2xl font-bold mb-4">{product.name}</h2>
-          <p className="text-gray-600 mb-2">{product.description}</p>
-          <p className="text-gray-800 mb-4">{product.price}</p>
+    <div className="z-50 fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
+    <div className="bg-white rounded shadow-md w-[500px] h-[670px] flex flex-col overflow-hidden">
+      <div className="flex-grow overflow-hidden">
+        <div className="bg-green-4 p-6">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-gray-800 text-3xl font-bold">{product.name}</h2>
+            <div className="flex items-center">
+              <p className="text-gray-800 text-3xl px-4">{product.price}€</p>
+              <IoIosCloseCircle
+                className="text-green-3 cursor-pointer w-10 h-10"
+                onClick={() => {
+                  console.log('Closing Configuration Modal');
+                  onClose();
+                }}
+              />
+            </div>
+          </div>
+          <p className="text-gray-800 text-xl mb-2">{product.description}</p>
+        </div>
 
-          {product.selectopt &&
+        <div className="max-h-[400px] overflow-y-auto">
+          {
+            product.selectopt &&
             product.selectopt.map((option) => (
-              <div key={option.MenuHead} className="mb-2">
+              <div key={option.MenuHead} className="mb-4 px-6">
                 {option.Name === 'Size' && (
                   <>
-                    <h3 className="text-gray-700 text-lg font-bold">{option.ModifierGroup}</h3>
+                    <div className="flex justify-between">
+                      <h3 className="text-gray-800 text-2xl font-semibold">{option.ModifierGroup}</h3>
+                      <h3 className="text-gray-800 text-2xl font-semibold">Extra</h3>
+                    </div>
                     {option.Modifier
                       .filter((modifier) => ['S', 'M', 'R'].includes(modifier.Size))
                       .map((modifier) => (
-                        <div key={modifier.AddonName} className="flex items-center">
-                          <input
-                            type={option.selection === 'Single' ? 'radio' : 'checkbox'}
-                            id={modifier.AddonName}
-                            name={option.ModifierGroup}
-                            checked={selectedSize === modifier.Size}
-                            onChange={() => handleSizeSelection(modifier.Size)}
-                            className="mr-2"
-                            disabled={option.MaxSelection === '1' && modifier.Seleted === 'true'}
-                          />
-                          <label htmlFor={modifier.AddonName} className="text-gray-600">
-                            {modifier.AddonName} - {modifier.Price}
-                          </label>
+                        <div key={modifier.AddonName} className="flex items-center justify-between text-xl py-1">
+                          <div className="flex items-center">
+                            <input
+                              type={option.selection === 'Single' ? 'radio' : 'checkbox'}
+                              id={modifier.AddonName}
+                              name={option.ModifierGroup}
+                              checked={selectedSize === modifier.Size}
+                              onChange={() => handleSizeSelection(modifier.Size)}
+                              className="mr-2"
+                              disabled={option.MaxSelection === '1' && modifier.Seleted === 'true'}
+                            />
+                            <label htmlFor={modifier.AddonName} className="text-gray-600">
+                              {modifier.AddonName}
+                            </label>
+                          </div>
+                          <span className="text-gray-800">€ {modifier.Price}</span>
                         </div>
                       ))}
                   </>
@@ -309,52 +326,50 @@ const ConfigurationModal = ({ product, onClose }) => {
 
                 {selectedSize && option.Name !== 'Size' && (
                   <>
-                    <h3 className="text-gray-700 text-lg font-bold">{option.Name}</h3>
+                    <div className="flex justify-between">
+                      <h3 className="text-gray-800 text-2xl font-semibold">{option.Name}</h3>
+                      <h3 className="text-gray-800 text-2xl font-semibold">Extra</h3>
+                    </div>
                     {option.Modifier
                       .filter((modifier) => modifier.Size === selectedSize)
                       .map((modifier) => (
-                        <div key={modifier.AddonName} className="flex items-center">
-                          <input
-                            type={option.selection === 'Single' ? 'radio' : 'checkbox'}
-                            id={modifier.AddonName}
-                            name={option.Name}
-                            checked={selectedAddons[option.Name]?.[modifier.AddonName]}
-                            onChange={() => handleCheckboxClick(modifier.AddonName, option.Name, option.selection === 'Single')}
-                            className="mr-2"
-                            disabled={option.MaxSelection === '1' && modifier.Seleted === 'true'}
-                          />
-                          <label htmlFor={modifier.AddonName} className="text-gray-600">
-                            {modifier.AddonName} - {modifier.Price}
-                          </label>
+                        <div key={modifier.AddonName} className="flex items-center justify-between text-xl py-1">
+                          <div className="flex items-center">
+                            <input
+                              type={option.selection === 'Single' ? 'radio' : 'checkbox'}
+                              id={modifier.AddonName}
+                              name={option.Name}
+                              checked={selectedAddons[option.Name]?.[modifier.AddonName]}
+                              onChange={() => handleCheckboxClick(modifier.AddonName, option.Name, option.selection === 'Single')}
+                              className="mr-2"
+                              disabled={option.MaxSelection === '1' && modifier.Seleted === 'true'}
+                            />
+                            <label htmlFor={modifier.AddonName} className="text-gray-600">
+                              {modifier.AddonName}
+                            </label>
+                          </div>
+                          <span className="text-gray-800">€ {modifier.Price}</span>
                         </div>
                       ))}
                   </>
                 )}
               </div>
-            ))}
+            ))
+          }
         </div>
-        <div className='flex flex-col'>
-          <button
-            onClick={() => {
-              console.log('Closing Configuration Modal');
-              onClose();
-            }}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-blue-700 mt-4"
-          >
-            CLOSE
-          </button>
-          <div className="mx-4"></div> {/* Add some margin between the buttons */}
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-blue-700 mt-4"
-            onClick={handleConfirm}
-          >
-            CONFIRM
-          </button>
-        </div>
+      </div >
+      //bottom section
+      <div className="bg-green-3">
+        <button
+          className="text-white text-2xl w-full py-3"
+          onClick={handleConfirm}
+        >
+          Bestätigen
+        </button>
       </div>
-
-    </div>
-  );
+    </div >
+  </div >
+);
 };
 
 export default ConfigurationModal;

@@ -30,8 +30,8 @@ const Footer = () =>
               <Link href='/about-us' className="mt-1 text-md transition-transform transform hover:translate-x-2">Über uns</Link>
               <Link href='/how-it-works-de' className="mt-1 text-md transition-transform transform hover:translate-x-2">So funktioniert´s</Link>
               <Link href='/contact' className="mt-1 text-md transition-transform transform hover:translate-x-2">Kontakt</Link>
-              <Link href='' className="mt-1 text-md transition-transform transform hover:translate-x-2">Impressum</Link>
-              <Link href='' className="mt-1 text-md transition-transform transform hover:translate-x-2">Koditionen</Link>
+              <Link href='/imprint-de' className="mt-1 text-md transition-transform transform hover:translate-x-2">Impressum</Link>
+              <Link href='/conditions-de' className="mt-1 text-md transition-transform transform hover:translate-x-2">Koditionen</Link>
               <Link href='' className="mt-1 text-md transition-transform transform hover:translate-x-2">Privatsphäre</Link>
               <Link href='/cookie-de' className="mt-1 text-md transition-transform transform hover:translate-x-2">Cookie</Link>
             </ul>
