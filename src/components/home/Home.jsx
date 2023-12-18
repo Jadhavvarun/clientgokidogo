@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="h-[400px] w-auto ml-16 relative mt-20">
-      <div className="bg-opacity-0 fixed top-0 left-0 right-0 bottom-0 bg-center bg-cover"></div>
+      <div className="bg-opacity-0 fixed top-0 left-0 right-0 bottom-0 "></div>
       <div className="flex-col absolute inset-0 flex items-start justify-center bg-opacity-50 text-white text-left">
         <h2 className="text-5xl text-black font-bold relative ml-5">
           Fair Essen bestellen ohne<br /> Verpackungsmüll!
