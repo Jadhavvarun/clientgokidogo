@@ -358,7 +358,6 @@ const ConfigurationModal = ({ product, onClose,onConfigurationConfirm }) => {
           }
         </div>
       </div >
-      //bottom section
       <div className="bg-green-3">
         <button
           className="text-white text-2xl w-full py-3"
