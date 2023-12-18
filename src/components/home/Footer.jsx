@@ -81,7 +81,7 @@ const Footer = () =>
           </div>
           <div>
             <p>
-              <Link href="/conditions-de" className="mr-4 text-sm">AGB's</Link>
+              <Link href="/conditions-de" className="mr-4 text-sm">AGB&apos;s</Link>
               <span className="mx-2">|</span>
               <Link href="/privacy-de" className="mx-4 text-sm">Privatsphäre</Link>
               <span className="mx-2">|</span>
